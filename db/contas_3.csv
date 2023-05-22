@@ -1,0 +1,18 @@
+id,name,father,initial_value
+1,Ativo,0,0
+2,Ativo Circulante,1,0
+3,Disponível,2,0
+4,Bancos contra movimento,3,0
+5,Banco Filho,4,150
+6,Estoques para Produção - Produto,2,0
+7,Estoques de Material,6,0
+8,Material,7,0
+9,Material Tipo I,8,30
+10,Estoques de Insumo,6,0
+11,Insumo,10,0
+12,Insumo Tipo I,11,0
+13,Material Filho,12,11050
+14,Estoque de Estrutura,6,0
+15,Máquinas e Equipamentos,14,0
+16,Máquinas e Equipamentos Tipo I,15,0
+17,Máquinas e Equipamentos Filho,16,1535

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo - Balanço Patrimonial</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <style>
+    html { overflow: auto; }
+    body {
+      overflow: auto;
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      background-color: #121212;
+      color: #ffffff;
+      font-family: "Roboto", sans-serif;
+    }
+    .flex { display: flex; }
+    .flex-cln { flex-direction: column; }
+    .align-self-center { align-self: center; }
+    .text-center { text-align: center; }
+    .float-right { float: right; }
+
+    .container { margin-top: 5vh; margin-bottom: 5vh; }
+
+    .loading {
+      position: fixed;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      background-color: #000a;
+    }
+    .loading-text { margin-top: 15vh; }
+
+    ul, li { list-style-type: disclosure-closed; }
+    .json { min-width: 30vw; min-height: 20vh; }
+  </style>
+
+  <script>
+    async function updateExemplo () {
+      // Mostra o loading para o usuário
+      const loading = document.getElementById('loading')
+      loading.style.display = 'block'
+
+      // Faz chamada a API
+      const exemploSelect = document.getElementById('exemplo')
+      const contas = await balance(exemploSelect.selectedIndex + 1)
+
+      // Preenche textarea com o json
+      const json = document.getElementById('json')
+      json.value = JSON.stringify(contas, null, 4)
+
+      // Cria a estrutura da lista em HTML
+      const ul = document.getElementById('lista')
+      const conta2HTML = (conta) => `<li>${conta.name} <a class="float-right">${conta.value}</a>
+      ${conta.children.length ? '<ul>' + conta.children.map(conta2HTML).join('\n') + '</ul' : ''}
+      </li>`
+      
+      ul.innerHTML = contas.map(conta2HTML).join('\n')
+
+      // Esconde o loading do usuário
+      loading.style.display = 'none'
+    }
+
+    function balance (id) {
+      return fetch(`http://localhost:8080/balance/${id}`).then(r => r.json())
+    }
+
+    document.addEventListener('DOMContentLoaded', updateExemplo)
+  </script>
+</head>
+<body>
+  <div class="flex flex-cln container">
+    <div class="flex flex-cln align-self-center text-center">
+      <h1>Demonstração - Balanço Patrimonial</h1>
+      <label for="exemplo">Escolha um exemplo:</label>
+      <select name="exemplo" id="exemplo" onchange="updateExemplo()">
+        <option value="1">Exemplo 1</option>
+        <option value="2">Exemplo 2</option>
+        <option value="3">Exemplo 3</option>
+      </select>
+    </div>
+    <div class="flex flex-cln align-self-center text-center">
+      <h1>Resultado da API</h1>
+      <textarea name="json" id="json" class="json" readonly autocomplete="off"></textarea>
+    </div>
+    <div class="flex flex-cln align-self-center">
+      <h1>Resultado Estruturado em Lista</h1>
+      <ul id="lista"></ul>
+    </div>
+  </div>
+  <div class="text-center loading" id="loading" style="display: none;">
+    <h2 class="loading-text">Carregando...</h2>
+  </div>
+</body>
+</html>

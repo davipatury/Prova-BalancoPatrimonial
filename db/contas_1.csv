@@ -1,0 +1,26 @@
+id,name,father,initial_value
+1,Ativo,0,0
+2,Ativo Circulante,1,0
+3,Empréstimos a funcionários,2,480
+4,Estoque,2,1150
+5,Clientes,2,800
+6,Caixa,2,130
+7,Bancos,2,300
+8,Veículos,2,2000
+9,Ativo a Longo Prazo,1,0
+10,Adiantamentos,9,260
+11,Clientes,9,500
+12,Empréstimos a funcionários,9,120
+13,Ativo Permanente,1,0
+14,Imobilizado,13,0
+15,Veículos,14,3500
+16,Móveis,14,650
+17,Diferido,13,0
+18,Gastos com estudos,17,980
+19,Passivo,0,0
+20,Fornecedores,19,3100
+21,Alugueis a pagar,19,500
+22,Empréstimos,19,0
+23,Empréstimos a longo prazo,22,3000
+24,Empréstimos a pagar,22,1000
+25,Impostos a pagar,19,700
